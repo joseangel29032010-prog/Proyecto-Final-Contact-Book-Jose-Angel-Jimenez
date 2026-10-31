@@ -1,55 +1,101 @@
-Este proyecto consiste en una API para gestionar contactos. Permite crear una cuenta, iniciar sesión y administrar los contactos de cada usuario.
+# Contact Book API
 
-Fue desarrollado como proyecto final del curso de Desarrollo Backend con Node.js.
+Contact Book es una API REST que permite gestionar contactos personales de forma organizada. Cada usuario puede tener su propia lista de contactos, clasificarlos por categorías y marcar sus favoritos.
 
-¿Qué se puede hacer?
+El proyecto cuenta con un sistema de autenticación y diferentes niveles de permisos para controlar las acciones que puede realizar cada usuario.
 
-Registrar usuarios e iniciar sesión.
+Fue desarrollado como proyecto final del curso **Desarrollo Backend con Node.js**, aplicando los conocimientos adquiridos durante el curso.
 
-Crear, consultar, editar y eliminar contactos.
+## Funcionalidades
 
-Organizar los contactos por categorías.
+- Registro de usuarios e inicio de sesión.
+- Autenticación mediante JWT.
+- Contraseñas protegidas con bcrypt.
+- Creación, consulta, edición y eliminación de contactos.
+- Organización de contactos por categorías.
+- Gestión de contactos favoritos.
+- Estadísticas de contactos.
+- Administración de usuarios y modificación de roles.
+- Protección de rutas según los permisos del usuario.
+- Validación de datos y manejo de errores.
+- Conexión con PostgreSQL.
 
-Marcar contactos como favoritos.
+## Instalación
 
-Consultar estadísticas.
+Clona el repositorio:
 
-Administrar usuarios y sus roles.
-
-Proteger las rutas mediante autenticación y permisos.
-
-Tecnologías
-
-El proyecto está desarrollado con Node.js y Express. Para guardar la información utiliza PostgreSQL y Sequelize. También se utilizan JWT para la autenticación, Docker para la base de datos y Jest con Supertest para las pruebas.
-
-Cómo ejecutar el proyecto
-
-Primero, clona el repositorio e instala las dependencias:
-
+```bash
 git clone https://github.com/joseangel29032010-prog/Proyecto-Final-Contact-Book-Jose-Angel-Jimenez.git
+```
+
+Entra en la carpeta del proyecto:
+
+```bash
 cd Proyecto-Final-Contact-Book-Jose-Angel-Jimenez
+```
+
+Instala las dependencias:
+
+```bash
 npm install
+```
 
-Crea un archivo .env tomando como referencia .env.example y configura tus variables de entorno.
+## Configuración
 
-Luego inicia la base de datos:
+Crea un archivo `.env` en la raíz del proyecto, tomando como referencia el archivo `.env.example`.
 
+Configura las siguientes variables:
+
+```env
+PORT=3000
+JWT_SECRET=tu_secreto_jwt
+JWT_EXPIRES_IN=1h
+
+ADMIN_EMAIL=admin@contactbook.com
+ADMIN_PASSWORD=tu_contrasena
+
+DB_HOST=127.0.0.1
+DB_PORT=5433
+DB_NAME=contactbook
+DB_USER=postgres
+DB_PASSWORD=tu_contrasena
+```
+
+Utiliza tus propias credenciales y no compartas el archivo `.env`.
+
+## Ejecutar el proyecto
+
+Inicia PostgreSQL mediante Docker:
+
+```bash
 docker compose up -d
+```
 
-Finalmente, inicia el servidor:
+Inicia el servidor en modo desarrollo:
 
+```bash
 npm run dev
+```
 
-La API estará disponible en http://localhost:3000.
+También puedes iniciarlo normalmente con:
 
-Pruebas
+```bash
+npm start
+```
 
-Para ejecutar las pruebas automatizadas:
+La API estará disponible en:
 
-npm test
+`http://localhost:3000`
 
-Autor
+## Principales rutas
 
-José Ángel Jiménez
+**Autenticación**
+- `POST /auth/register` — Registrar un usuario.
+- `POST /auth/login` — Iniciar sesión.
+- `GET /auth/me` — Consultar el usuario autenticado.
 
-Proyecto final — Desarrollo Backend con Node.js.
+**Contactos**
+- `GET /contacts` — Obtener los contactos.
+- `GET /contacts/:id` — Consultar un contacto.
+- `POST /contacts` — Crear un contacto.
+- `PUT /contacts
