@@ -1,32 +1,42 @@
-Este proyecto consiste en una API para gestionar contactos, realizada con Node.js y Express. Permite registrar usuarios, iniciar sesión y manejar contactos, además de tener diferentes permisos según el rol de cada usuario.
+Este proyecto consiste en una API para gestionar contactos. Permite crear una cuenta, iniciar sesión y administrar los contactos de cada usuario.
 
-¿Qué puede hacer?
+Fue desarrollado como proyecto final del curso de Desarrollo Backend con Node.js.
+
+¿Qué se puede hacer?
 
 Registrar usuarios e iniciar sesión.
 
-Proteger las rutas usando JWT.
-
-Guardar las contraseñas de forma segura con bcryptjs.
-
 Crear, consultar, editar y eliminar contactos.
 
-Organizar los contactos por categorías y marcarlos como favoritos.
+Organizar los contactos por categorías.
 
-Consultar estadísticas de los contactos.
+Marcar contactos como favoritos.
 
-Administrar los usuarios y cambiar sus roles.
+Consultar estadísticas.
 
-Validar los datos y limitar los intentos de inicio de sesión.
+Administrar usuarios y sus roles.
 
-Instalación
+Proteger las rutas mediante autenticación y permisos.
 
-Primero, instala las dependencias:
+Tecnologías
 
+El proyecto está desarrollado con Node.js y Express. Para guardar la información utiliza PostgreSQL y Sequelize. También se utilizan JWT para la autenticación, Docker para la base de datos y Jest con Supertest para las pruebas.
+
+Cómo ejecutar el proyecto
+
+Primero, clona el repositorio e instala las dependencias:
+
+git clone https://github.com/joseangel29032010-prog/Proyecto-Final-Contact-Book-Jose-Angel-Jimenez.git
+cd Proyecto-Final-Contact-Book-Jose-Angel-Jimenez
 npm install
 
-Después, crea un archivo .env basándote en .env.example y configura las variables necesarias.
+Crea un archivo .env tomando como referencia .env.example y configura tus variables de entorno.
 
-Para iniciar el servidor en modo desarrollo, ejecuta:
+Luego inicia la base de datos:
+
+docker compose up -d
+
+Finalmente, inicia el servidor:
 
 npm run dev
 
@@ -34,9 +44,12 @@ La API estará disponible en http://localhost:3000.
 
 Pruebas
 
-Utilicé Postman para probar las rutas y comprobar que las funciones principales trabajaran correctamente, incluyendo el inicio de sesión, la gestión de contactos y los permisos de los usuarios.
+Para ejecutar las pruebas automatizadas:
 
-Nota
+npm test
 
-Los usuarios y los contactos se guardan en memoria, por lo que los datos se pierden cuando se reinicia el servidor.
+Autor
 
+José Ángel Jiménez
+
+Proyecto final — Desarrollo Backend con Node.js.

@@ -19,15 +19,33 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(requestTimer);
 
+
 app.get('/', (req, res) => {
   res.json({ message: 'Contact Book API funcionando' });
 });
+
+app.get('/health', async (req, res) => {
+  try {
+    await require('./config/database').authenticate();
+
+    res.status(200).json({
+      status: 'OK',
+      database: 'connected',
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: 'ERROR',
+      database: 'disconnected',
+    });
+  }
+});
+
 
 app.use('/contacts', contactsRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 console.log('Rutas /contacts cargadas');
-// Estos dos middlewares deben ir al final
+
 app.use(notFound);
 app.use(errorHandler);
 

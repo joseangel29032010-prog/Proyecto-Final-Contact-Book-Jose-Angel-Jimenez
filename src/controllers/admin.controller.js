@@ -1,14 +1,19 @@
-
-const usersData = require('../data/users.data');
+const { User } = require('../models');
 const AppError = require('../utils/AppError');
 
-function getUsers(req, res) {
-  res.status(200).json({
-    users: usersData.findAll(),
-  });
+async function getUsers(req, res, next) {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['passwordHash'] },
+    });
+
+    res.status(200).json({ users });
+  } catch (error) {
+    next(error);
+  }
 }
 
-function updateUserRole(req, res, next) {
+async function updateUserRole(req, res, next) {
   try {
     const { role } = req.body;
     const allowedRoles = ['member', 'manager', 'admin'];
@@ -20,13 +25,16 @@ function updateUserRole(req, res, next) {
       );
     }
 
-    const user = usersData.updateRole(req.params.id, role);
+    const user = await User.findByPk(req.params.id);
 
     if (!user) {
       throw new AppError('Usuario no encontrado', 404);
     }
 
-    const { passwordHash, ...safeUser } = user;
+    await user.update({ role });
+
+    const safeUser = user.get({ plain: true });
+    delete safeUser.passwordHash;
 
     res.status(200).json({
       message: 'Rol actualizado correctamente',
@@ -37,7 +45,4 @@ function updateUserRole(req, res, next) {
   }
 }
 
-module.exports = {
-  getUsers,
-  updateUserRole,
-};
+module.exports = { getUsers, updateUserRole };
